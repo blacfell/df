@@ -1,0 +1,4 @@
+#!/bin/bash
+sxhkd &
+
+bspc monitor eDP-1 -d I II III IV V VI VII VII IX X

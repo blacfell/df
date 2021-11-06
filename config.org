@@ -1,0 +1,176 @@
+#+TITLE: The Configurations
+#+PROPERTY: header-args :mkdirp yes
+* Shell
+** =zsh=
+   =zsh= is a pretty good shell. I use it largely because it has pretty good completions in it by default.
+   #+begin_src sh :tangle ~/.zshrc
+     zstyle :compinstall filename '/home/fangz/.zshrc'
+     autoload -Uz compinit
+     compinit
+
+     HISTFILE=~/.histfile
+     HISTSIZE=1000
+     SAVEHIST=1000
+
+     unsetopt beep # stop making noise please
+   #+end_src
+*** =$EDITOR=
+    =$EDITOR= is used by a decent amount of programs to determine what text editor to use. I set it to neovim because it's a small editor I know how to use.
+    #+begin_src sh :tangle ~/.zshrc
+      export EDITOR=nvim
+    #+end_src
+*** =$PS1=
+    =$PS1= is the prompt text. See [[https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html][zsh Manual Chapter 13]]. This prompt shows the working directory, relative to the current user's =$HOME=. The directory is also coloured blue.
+    #+begin_src sh :tangle ~/.zshrc
+      PS1="%F{blue}%2~%f%# "
+    #+end_src
+*** Aliases
+    Replacing programs with much better ones, and turning on good defaults.
+    #+begin_src sh :tangle ~/.zshrc
+      alias ls="/usr/bin/exa -al"
+      alias df="/usr/bin/df -h"
+    #+end_src
+* X11
+  X11 is a windowing system which has been around for a very long time. To this day it is very widely used.
+** xinitrc
+   xinitrc is a script used by xinit to start programs along with X.
+   #+begin_src sh :tangle ~/.xinitrc :shebang #!/bin/bash :noweb no-export
+     <<xinit-conf>>
+
+     <<xinit-exec>>
+   #+end_src
+*** Weird X stuff
+    These commands handle keyboard stuff.
+    #+name: xinit-conf
+    #+begin_src sh
+      userresources=$HOME/.Xresources
+      usermodmap=$HOME/.Xmodmap
+      sysresources=/etc/X11/xinit/.Xresources
+      sysmodmap=/etc/X11/xinit/.Xmodmap
+
+      setxkbmap -layout us -variant dvorak
+
+      if [ -f $sysresources ]; then
+	  xrdb -merge $sysresources
+      fi
+
+      if [ -f $sysmodmap ]; then
+	  xmodmap $sysmodmap
+      fi
+
+      if [ -f "$userresources" ]; then
+	  xrdb -merge "$userresources"
+      fi
+
+      if [ -f "$usermodmap" ]; then
+	  xmodmap "$usermodmap"
+      fi
+    #+end_src
+**** Xmodmap
+     Xmodmap lets you do weird keyboard stuff.
+     #+begin_src conf :tangle ~/.Xmodmap
+       clear lock
+       clear control
+       keycode 66 = Control_L
+       add control = Control_L
+     #+end_src
+**** Xresources
+     Some programs use this for configuration.
+*** Starting programs
+    :PROPERTIES:
+    :header-args: :noweb-ref xinit-exec
+    :END:
+    Xcape lets Caps Lock act as both Ctrl and Esc.
+    #+begin_src conf
+      xcape &
+    #+end_src
+    Starting the window manager.
+    #+begin_src conf
+      exec bspwm
+    #+end_src
+** bspwm
+   :PROPERTIES:
+   :header-args+: :tangle ~/.config/bspwm/bspwmrc #shebang #!/bin/bash\n
+   :END:
+   bspwm is a good window manager.
+
+   bspwm is very minimal, and thus does not come with keybind handling. Thus we start the hotkey daemon if it is not already running.
+   #+begin_src sh
+     sxhkd &
+   #+end_src
+
+   We now set up workspaces, which have to be applied to monitor names for some reason??
+   #+begin_src sh 
+     bspc monitor eDP-1 -d I II III IV V VI VII VII IX X
+   #+end_src
+*** sxhkd
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/sxhkd/sxhkdrc
+    :END:
+    *S* imple
+    *X*
+    *H* ot
+    *K* ey
+    *D* aemon
+
+    #+begin_src conf
+      super + shift + Return
+	    urxvt
+
+      super + o
+	    rofi -show run
+
+      super +{_,shift +} q
+	    bspc node {-k,-c}
+
+      super + {_,shift +}{1-9,0}
+	    bspc {desktop -f,node -d} '^{1-9,10}'
+    #+end_src
+* Editors
+** Emacs
+   :PROPERTIES:
+   :header-args+: :tangle ~/.emacs.d/init.el
+   :END:
+*** Packaging
+    This config uses [[https://github.com/raxod502/straight.el][straight.el]] as the package manager.
+    #+begin_src emacs-lisp
+      (defvar bootstrap-version)
+      (let ((bootstrap-file
+	     (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+	    (bootstrap-version 5))
+	(unless (file-exists-p bootstrap-file)
+	  (with-current-buffer
+	      (url-retrieve-synchronously
+	       "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	       'silent 'inhibit-cookies)
+	    (goto-char (point-max))
+	    (eval-print-last-sexp)))
+	(load bootstrap-file nil 'nomessage))
+    #+end_src
+
+    The straight.el readme recommends adding a single line to early-init.el to prevent packages from loading before straight.el.
+    #+begin_src emacs-lisp :tangle ~/.emacs.d/early-init.el
+      (setq package-enable-at-startup nil)
+    #+end_src
+
+    Packages themselves are installed with use-package:
+    #+begin_src emacs-lisp
+      (straight-use-package 'use-package)
+      (setq straight-use-package-by-default t)
+    #+end_src
+*** Aesthetics
+    Let's make Emacs look better. First of all, let's turn off a few default settings I don't want:
+    #+begin_src emacs-lisp
+      (menu-bar-mode -1) ; turn off menu bar
+      (tool-bar-mode -1) ; turn off toolbar
+      (scroll-bar-mode -1) ; turn off scrollbar
+      (setq visible-bell t) ; i, frankly, don't quite like having loud doots screamed at me all the time.
+    #+end_src
+*** Programming
+**** Magit
+     Magit is a 'git porcelain'.
+     #+begin_src emacs-lisp
+       (use-package magit)
+     #+end_src
+*** Org Mode
+    Org Mode is, frankly, one of the best things to ever grace this hellish Earth. It can be used for writing, outlining, scheduling, literate programming and more.

@@ -1,0 +1,11 @@
+super + shift + Return
+      urxvt
+
+super + o
+      rofi -show run
+
+super +{_,shift +} q
+      bspc node {-k,-c}
+
+super + {_,shift +}{1-9,0}
+      bspc {desktop -f,node -d} '^{1-9,10}'

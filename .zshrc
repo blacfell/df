@@ -2,6 +2,8 @@ zstyle :compinstall filename '/home/fangz/.zshrc'
 autoload -Uz compinit
 compinit
 
+bindkey -e
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000

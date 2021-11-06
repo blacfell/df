@@ -90,7 +90,7 @@
     #+end_src
 ** bspwm
    :PROPERTIES:
-   :header-args+: :tangle ~/.config/bspwm/bspwmrc #shebang #!/bin/bash\n
+   :header-args+: :tangle ~/.config/bspwm/bspwmrc :shebang #!/bin/bash
    :END:
    bspwm is a good window manager.
 
@@ -101,7 +101,18 @@
 
    We now set up workspaces, which have to be applied to monitor names for some reason??
    #+begin_src sh 
-     bspc monitor eDP-1 -d I II III IV V VI VII VII IX X
+     if [[ $(hostname) == "kucing" ]]
+     then
+	     bspc monitor DVI-I-0 -d I II III IV V
+	     bspc monitor HDMI-0 -d VI VII VIII IX X
+     else
+	     bspc monitor eDP-1 -d I II III IV V VI VII VIII IX X
+     fi
+   #+end_src
+
+   Next we set some window rules:
+   #+begin_src sh
+     bspc rule -a Emacs state=tiled
    #+end_src
 *** sxhkd
     :PROPERTIES:

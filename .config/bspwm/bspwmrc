@@ -1,4 +1,12 @@
 #!/bin/bash
 sxhkd &
 
-bspc monitor eDP-1 -d I II III IV V VI VII VII IX X
+if [[ $(hostname) == "kucing" ]]
+then
+	bspc monitor DVI-I-0 -d I II III IV V
+	bspc monitor HDMI-0 -d VI VII VIII IX X
+else
+	bspc monitor eDP-1 -d I II III IV V VI VII VIII IX X
+fi
+
+bspc rule -a Emacs state=tiled

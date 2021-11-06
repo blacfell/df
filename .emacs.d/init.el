@@ -18,3 +18,5 @@
 (tool-bar-mode -1) ; turn off toolbar
 (scroll-bar-mode -1) ; turn off scrollbar
 (setq visible-bell t) ; i, frankly, don't quite like having loud doots screamed at me all the time.
+
+(use-package magit)

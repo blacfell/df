@@ -227,11 +227,26 @@
       (scroll-bar-mode -1) ; turn off scrollbar
       (setq visible-bell t) ; i, frankly, don't quite like having loud doots screamed at me all the time.
     #+end_src
+
+    Emacs has built in support for themes. I am not a *huge* fan of any theme as of yet, but Monokai doesn't look like shit so I'll go with that.
+    #+begin_src emacs-lisp
+      (use-package monokai-theme
+	:config
+	(load-theme 'monokai t))
+    #+end_src
 *** Programming
 **** Magit
      Magit is a 'git porcelain'.
      #+begin_src emacs-lisp
        (use-package magit)
      #+end_src
+**** Rainbow Delimiters
+     #+begin_src emacs-lisp
+       (use-package rainbow-delimiters
+	 :hook (prog-mode . rainbow-delimiters-mode))
+     #+end_src
 *** Org Mode
     Org Mode is, frankly, one of the best things to ever grace this hellish Earth. It can be used for writing, outlining, scheduling, literate programming and more.
+    #+begin_src emacs-lisp
+      (add-hook 'text-mode-hook #'visual-line-mode) ; i'm not sure where else to put this line.
+    #+end_src

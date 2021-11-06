@@ -19,4 +19,13 @@
 (scroll-bar-mode -1) ; turn off scrollbar
 (setq visible-bell t) ; i, frankly, don't quite like having loud doots screamed at me all the time.
 
+(use-package monokai-theme
+  :config
+  (load-theme 'monokai t))
+
 (use-package magit)
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(add-hook 'text-mode-hook #'visual-line-mode) ; i'm not sure where else to put this line.

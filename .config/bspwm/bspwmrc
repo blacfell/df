@@ -1,6 +1,8 @@
 #!/bin/bash
 sxhkd &
 
+~/.config/polybar/launch.sh &
+
 if [[ $(hostname) == "kucing" ]]
 then
 	bspc monitor DVI-I-1 -d I II III IV V

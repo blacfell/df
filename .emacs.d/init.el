@@ -23,9 +23,27 @@
   :config
   (load-theme 'monokai t))
 
+(use-package ivy
+  :config
+  (ivy-mode)
+  (global-set-key "\C-s" 'swiper))
+
+(use-package swiper)
+
+(use-package avy
+  :config
+  (global-set-key (kbd "C-:") 'avy-goto-char)
+  (global-set-key (kbd "C-.") 'avy-goto-char-timer)
+  (global-set-key (kbd "M-g f") 'avy-goto-line)
+  (global-set-key (kbd "M-g w") 'avy-goto-word-1))
+
 (use-package magit)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(add-hook 'text-mode-hook #'visual-line-mode) ; i'm not sure where else to put this line.
+(use-package haskell-mode)
+
+(use-package org-mode
+  :config
+  (add-hook 'text-mode-hook #'visual-line-mode))

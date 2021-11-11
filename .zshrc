@@ -14,5 +14,5 @@ export EDITOR=nvim
 
 PS1="%F{blue}%2~%f%# "
 
-alias ls="/usr/bin/exa -al"
+alias ls="/usr/bin/exa -l"
 alias df="/usr/bin/df -h"

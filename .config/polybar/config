@@ -1,0 +1,33 @@
+[bar/mirri]
+modules-left = bspwm
+modules-center = xwindow
+modules-right = battery clock
+
+font-0 = "DejaVu Sans Mono:pixelsize=12;0"
+
+[module/bspwm]
+type = internal/bspwm
+
+pin-workspaces = true
+
+label-focused-background = #FFFF00
+label-focused-foreground = #000000
+label-empty-foreground = #B6B6B6
+
+label-focused = " %name% "
+label-occupied = " %name% "
+label-urgent = " %name% "
+label-empty = " %name% "
+
+[module/xwindow]
+type = internal/xwindow
+
+[module/battery]
+type = internal/battery
+
+[module/clock]
+type = internal/date
+
+date = %Y-%m-%d
+time = %H:%M:%S
+label = %date% %time%

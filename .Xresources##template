@@ -1,4 +1,8 @@
+{% if yadm.hostname == "mirri" %}
+URxvt.font: xft:DejaVu Sans Mono:regular:pixelsize=18
+{% else %}
 URxvt.font: xft:DejaVu Sans Mono:regular:pixelsize=15
+{% elseif %}
 URxvt.letterSpace: -1
 URxvt.scrollBar: False
 

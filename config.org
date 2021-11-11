@@ -29,7 +29,7 @@
 *** Aliases
     Replacing programs with much better ones, and turning on good defaults.
     #+begin_src sh :tangle ~/.zshrc
-      alias ls="/usr/bin/exa -al"
+      alias ls="/usr/bin/exa -l"
       alias df="/usr/bin/df -h"
     #+end_src
 * X11
@@ -99,6 +99,11 @@
      sxhkd &
    #+end_src
 
+   next is to start the bar:
+   #+begin_src sh
+     ~/.config/polybar/launch.sh &
+   #+end_src
+
    We now set up workspaces, which have to be applied to monitor names for some reason??
    #+begin_src sh 
      if [[ $(hostname) == "kucing" ]]
@@ -119,9 +124,13 @@
     :header-args: :tangle ~/.config/sxhkd/sxhkdrc
     :END:
     *S* imple
+    
     *X*
+    
     *H* ot
+    
     *K* ey
+    
     *D* aemon
 
     #+begin_src conf
@@ -137,13 +146,23 @@
       super + {_,shift +}{1-9,0}
 	    bspc {desktop -f,node -d} '^{1-9,10}'
     #+end_src
+
+    I use my laptop a lot, so here are some XF86 keys:
+    #+begin_src conf
+      XF86Audio{Raise,Lower}Volume
+	      pactl set-sink-volume {+,-}5%
+    #+end_src
 ** urxvt
    :PROPERTIES:
-   :header-args: :tangle ~/.Xresources
+   :header-args+: :tangle ~/.Xresources##template
    :END:
-   urxvt (short for rxvt-unicode) is a popular terminal emulator. It is configured with Xresources.
+   urxvt (short for rxvt-unicode) is a popular terminal emulator. It is configured with Xresources. This file uses yadm's template feature.
    #+begin_src conf
+     {% if yadm.hostname == "mirri" %}
+     URxvt.font: xft:DejaVu Sans Mono:regular:pixelsize=18
+     {% else %}
      URxvt.font: xft:DejaVu Sans Mono:regular:pixelsize=15
+     {% elseif %}
      URxvt.letterSpace: -1
      URxvt.scrollBar: False
    #+end_src
@@ -187,6 +206,419 @@
       URxvt.color7:       #f8f8f2
       URxvt.color15:      #f9f8f5
     #+end_src
+** polybar
+   :PROPERTIES:
+   :header-args+: :tangle ~/.config/polybar/config
+   :END:
+   Polybar is a bar. It's okay.
+
+   First order of business is to create a launch script:
+   #+begin_src sh :tangle ~/.config/polybar/launch.sh :shebang #!/bin/bash
+     killall -q polybar
+
+     echo "---" | tee -a /tmp/polybar.log
+     polybar mirri 2>&1 | tee -a /tmp/polybar.log & disown
+   #+end_src
+
+   Now we can get to the configuration proper. To start we configure the look and functionality of the bar as a whole.
+   #+begin_src conf
+     [bar/mirri]
+     modules-left = bspwm
+     modules-center = xwindow
+     modules-right = battery clock
+   #+end_src
+
+   Here's the font configuration.
+   #+begin_src conf
+     font-0 = "DejaVu Sans Mono:pixelsize=12;0"
+   #+end_src
+*** Modules
+**** bspwm
+     This module shows a little graph of workspaces if you're using bspwm.
+     #+begin_src conf
+       [module/bspwm]
+       type = internal/bspwm
+     #+end_src
+
+     If you're using a computer with multiple monitors, it makes sense to only show a monitor's available workspaces rather than all of them.
+     #+begin_src conf
+       pin-workspaces = true
+     #+end_src
+
+     There are a lot of settable colours:
+     #+begin_src conf
+       label-focused-background = #FFFF00
+       label-focused-foreground = #000000
+       label-empty-foreground = #B6B6B6
+     #+end_src
+
+     Adding extra spaces on the end makes it look more consistent.
+     #+begin_src conf
+       label-focused = " %name% "
+       label-occupied = " %name% "
+       label-urgent = " %name% "
+       label-empty = " %name% "
+     #+end_src
+**** xwindow
+     Shows the current window title
+     #+begin_src conf
+       [module/xwindow]
+       type = internal/xwindow
+     #+end_src
+**** battery
+     Shows battery level if applicable
+     #+begin_src conf
+       [module/battery]
+       type = internal/battery
+     #+end_src
+**** date
+     This shows the current date.
+     #+begin_src conf
+       [module/clock]
+       type = internal/date
+     #+end_src
+
+     I pretty much only use the ISO date format (albeit without the unnecessary letters)
+     #+begin_src conf
+       date = %Y-%m-%d
+       time = %H:%M:%S
+       label = %date% %time%
+     #+end_src
+* Web Browser
+  :PROPERTIES:
+  :header-args+: :tangle ~/.config/qutebrowser/config.py
+  :END:
+  At this stage, I'm basically stuck with Qutebrowser.
+
+  This automatically loads any configurations made inside of Qutebrowser. I don't actually use it at all, though.
+  #+begin_src python
+    config.load_autoconfig()
+  #+end_src
+
+  The [[https://wiki.archlinux.org/title/Dvora][Arch Linux Wiki page for Dvorak]] has an example configuration for Qutebrowser which I like. It also binds hinting to =e= which I really like.
+  #+begin_src python
+    config.bind('h', 'scroll left')
+    config.bind('t', 'scroll down')
+    config.bind('n', 'scroll up')
+    config.bind('s', 'scroll right')
+
+    config.bind('H', 'back')
+    config.bind('T', 'tab-prev')
+    config.bind('N', 'tab-next')
+    config.bind('S', 'forward')
+
+    config.bind('e', 'hint all')
+    config.bind('E', 'hint all tab')
+  #+end_src
+
+  I also change the =hints.chars= setting, which determines what characters get used to generate hint sequences.
+  #+begin_src python
+    c.hints.chars = 'aoeuidhtns'
+  #+end_src
+** Colour theme
+   This is copied from [[https://github.com/theova/base16-qutebrowser][base16-qutebrowser]] because making a submodule would be a terrible hassle. Fuck submodules.
+   #+begin_src python
+     # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
+     # Base16 qutebrowser template by theova
+     # Monokai scheme by Wimer Hazenberg (http://www.monokai.nl)
+
+     base00 = "#272822"
+     base01 = "#383830"
+     base02 = "#49483e"
+     base03 = "#75715e"
+     base04 = "#a59f85"
+     base05 = "#f8f8f2"
+     base06 = "#f5f4f1"
+     base07 = "#f9f8f5"
+     base08 = "#f92672"
+     base09 = "#fd971f"
+     base0A = "#f4bf75"
+     base0B = "#a6e22e"
+     base0C = "#a1efe4"
+     base0D = "#66d9ef"
+     base0E = "#ae81ff"
+     base0F = "#cc6633"
+
+     # set qutebrowser colors
+
+     # Text color of the completion widget. May be a single color to use for
+     # all columns or a list of three colors, one for each column.
+     c.colors.completion.fg = base05
+
+     # Background color of the completion widget for odd rows.
+     c.colors.completion.odd.bg = base01
+
+     # Background color of the completion widget for even rows.
+     c.colors.completion.even.bg = base00
+
+     # Foreground color of completion widget category headers.
+     c.colors.completion.category.fg = base0A
+
+     # Background color of the completion widget category headers.
+     c.colors.completion.category.bg = base00
+
+     # Top border color of the completion widget category headers.
+     c.colors.completion.category.border.top = base00
+
+     # Bottom border color of the completion widget category headers.
+     c.colors.completion.category.border.bottom = base00
+
+     # Foreground color of the selected completion item.
+     c.colors.completion.item.selected.fg = base05
+
+     # Background color of the selected completion item.
+     c.colors.completion.item.selected.bg = base02
+
+     # Top border color of the selected completion item.
+     c.colors.completion.item.selected.border.top = base02
+
+     # Bottom border color of the selected completion item.
+     c.colors.completion.item.selected.border.bottom = base02
+
+     # Foreground color of the matched text in the selected completion item.
+     c.colors.completion.item.selected.match.fg = base0B
+
+     # Foreground color of the matched text in the completion.
+     c.colors.completion.match.fg = base0B
+
+     # Color of the scrollbar handle in the completion view.
+     c.colors.completion.scrollbar.fg = base05
+
+     # Color of the scrollbar in the completion view.
+     c.colors.completion.scrollbar.bg = base00
+
+     # Background color of disabled items in the context menu.
+     c.colors.contextmenu.disabled.bg = base01
+
+     # Foreground color of disabled items in the context menu.
+     c.colors.contextmenu.disabled.fg = base04
+
+     # Background color of the context menu. If set to null, the Qt default is used.
+     c.colors.contextmenu.menu.bg = base00
+
+     # Foreground color of the context menu. If set to null, the Qt default is used.
+     c.colors.contextmenu.menu.fg =  base05
+
+     # Background color of the context menu’s selected item. If set to null, the Qt default is used.
+     c.colors.contextmenu.selected.bg = base02
+
+     #Foreground color of the context menu’s selected item. If set to null, the Qt default is used.
+     c.colors.contextmenu.selected.fg = base05
+
+     # Background color for the download bar.
+     c.colors.downloads.bar.bg = base00
+
+     # Color gradient start for download text.
+     c.colors.downloads.start.fg = base00
+
+     # Color gradient start for download backgrounds.
+     c.colors.downloads.start.bg = base0D
+
+     # Color gradient end for download text.
+     c.colors.downloads.stop.fg = base00
+
+     # Color gradient stop for download backgrounds.
+     c.colors.downloads.stop.bg = base0C
+
+     # Foreground color for downloads with errors.
+     c.colors.downloads.error.fg = base08
+
+     # Font color for hints.
+     c.colors.hints.fg = base00
+
+     # Background color for hints. Note that you can use a `rgba(...)` value
+     # for transparency.
+     c.colors.hints.bg = base0A
+
+     # Font color for the matched part of hints.
+     c.colors.hints.match.fg = base05
+
+     # Text color for the keyhint widget.
+     c.colors.keyhint.fg = base05
+
+     # Highlight color for keys to complete the current keychain.
+     c.colors.keyhint.suffix.fg = base05
+
+     # Background color of the keyhint widget.
+     c.colors.keyhint.bg = base00
+
+     # Foreground color of an error message.
+     c.colors.messages.error.fg = base00
+
+     # Background color of an error message.
+     c.colors.messages.error.bg = base08
+
+     # Border color of an error message.
+     c.colors.messages.error.border = base08
+
+     # Foreground color of a warning message.
+     c.colors.messages.warning.fg = base00
+
+     # Background color of a warning message.
+     c.colors.messages.warning.bg = base0E
+
+     # Border color of a warning message.
+     c.colors.messages.warning.border = base0E
+
+     # Foreground color of an info message.
+     c.colors.messages.info.fg = base05
+
+     # Background color of an info message.
+     c.colors.messages.info.bg = base00
+
+     # Border color of an info message.
+     c.colors.messages.info.border = base00
+
+     # Foreground color for prompts.
+     c.colors.prompts.fg = base05
+
+     # Border used around UI elements in prompts.
+     c.colors.prompts.border = base00
+
+     # Background color for prompts.
+     c.colors.prompts.bg = base00
+
+     # Background color for the selected item in filename prompts.
+     c.colors.prompts.selected.bg = base02
+
+     # Foreground color for the selected item in filename prompts.
+     c.colors.prompts.selected.fg = base05
+
+     # Foreground color of the statusbar.
+     c.colors.statusbar.normal.fg = base0B
+
+     # Background color of the statusbar.
+     c.colors.statusbar.normal.bg = base00
+
+     # Foreground color of the statusbar in insert mode.
+     c.colors.statusbar.insert.fg = base00
+
+     # Background color of the statusbar in insert mode.
+     c.colors.statusbar.insert.bg = base0D
+
+     # Foreground color of the statusbar in passthrough mode.
+     c.colors.statusbar.passthrough.fg = base00
+
+     # Background color of the statusbar in passthrough mode.
+     c.colors.statusbar.passthrough.bg = base0C
+
+     # Foreground color of the statusbar in private browsing mode.
+     c.colors.statusbar.private.fg = base00
+
+     # Background color of the statusbar in private browsing mode.
+     c.colors.statusbar.private.bg = base01
+
+     # Foreground color of the statusbar in command mode.
+     c.colors.statusbar.command.fg = base05
+
+     # Background color of the statusbar in command mode.
+     c.colors.statusbar.command.bg = base00
+
+     # Foreground color of the statusbar in private browsing + command mode.
+     c.colors.statusbar.command.private.fg = base05
+
+     # Background color of the statusbar in private browsing + command mode.
+     c.colors.statusbar.command.private.bg = base00
+
+     # Foreground color of the statusbar in caret mode.
+     c.colors.statusbar.caret.fg = base00
+
+     # Background color of the statusbar in caret mode.
+     c.colors.statusbar.caret.bg = base0E
+
+     # Foreground color of the statusbar in caret mode with a selection.
+     c.colors.statusbar.caret.selection.fg = base00
+
+     # Background color of the statusbar in caret mode with a selection.
+     c.colors.statusbar.caret.selection.bg = base0D
+
+     # Background color of the progress bar.
+     c.colors.statusbar.progress.bg = base0D
+
+     # Default foreground color of the URL in the statusbar.
+     c.colors.statusbar.url.fg = base05
+
+     # Foreground color of the URL in the statusbar on error.
+     c.colors.statusbar.url.error.fg = base08
+
+     # Foreground color of the URL in the statusbar for hovered links.
+     c.colors.statusbar.url.hover.fg = base05
+
+     # Foreground color of the URL in the statusbar on successful load
+     # (http).
+     c.colors.statusbar.url.success.http.fg = base0C
+
+     # Foreground color of the URL in the statusbar on successful load
+     # (https).
+     c.colors.statusbar.url.success.https.fg = base0B
+
+     # Foreground color of the URL in the statusbar when there's a warning.
+     c.colors.statusbar.url.warn.fg = base0E
+
+     # Background color of the tab bar.
+     c.colors.tabs.bar.bg = base00
+
+     # Color gradient start for the tab indicator.
+     c.colors.tabs.indicator.start = base0D
+
+     # Color gradient end for the tab indicator.
+     c.colors.tabs.indicator.stop = base0C
+
+     # Color for the tab indicator on errors.
+     c.colors.tabs.indicator.error = base08
+
+     # Foreground color of unselected odd tabs.
+     c.colors.tabs.odd.fg = base05
+
+     # Background color of unselected odd tabs.
+     c.colors.tabs.odd.bg = base01
+
+     # Foreground color of unselected even tabs.
+     c.colors.tabs.even.fg = base05
+
+     # Background color of unselected even tabs.
+     c.colors.tabs.even.bg = base00
+
+     # Background color of pinned unselected even tabs.
+     c.colors.tabs.pinned.even.bg = base0C
+
+     # Foreground color of pinned unselected even tabs.
+     c.colors.tabs.pinned.even.fg = base07
+
+     # Background color of pinned unselected odd tabs.
+     c.colors.tabs.pinned.odd.bg = base0B
+
+     # Foreground color of pinned unselected odd tabs.
+     c.colors.tabs.pinned.odd.fg = base07
+
+     # Background color of pinned selected even tabs.
+     c.colors.tabs.pinned.selected.even.bg = base02
+
+     # Foreground color of pinned selected even tabs.
+     c.colors.tabs.pinned.selected.even.fg = base05
+
+     # Background color of pinned selected odd tabs.
+     c.colors.tabs.pinned.selected.odd.bg = base02
+
+     # Foreground color of pinned selected odd tabs.
+     c.colors.tabs.pinned.selected.odd.fg = base05
+
+     # Foreground color of selected odd tabs.
+     c.colors.tabs.selected.odd.fg = base05
+
+     # Background color of selected odd tabs.
+     c.colors.tabs.selected.odd.bg = base02
+
+     # Foreground color of selected even tabs.
+     c.colors.tabs.selected.even.fg = base05
+
+     # Background color of selected even tabs.
+     c.colors.tabs.selected.even.bg = base02
+
+     # Background color for webpages if unset (or empty to use the theme's
+     # color).
+     # c.colors.webpage.bg = base00
+   #+end_src
 * Editors
 ** Emacs
    :PROPERTIES:
@@ -234,6 +666,31 @@
 	:config
 	(load-theme 'monokai t))
     #+end_src
+*** Functionality
+    I don't really know what to call this 
+**** Ivy
+      Ivy is a completion frontend. It has a few packages that basically go with it that I am also using.
+      #+begin_src emacs-lisp
+	(use-package ivy
+	  :config
+	  (ivy-mode)
+	  (global-set-key "\C-s" 'swiper))
+      #+end_src
+***** Swiper
+      Swiper is a search tool that works with Ivy.
+      #+begin_src emacs-lisp
+	(use-package swiper)
+      #+end_src
+**** Avy
+     Not to be confused with Ivy.
+     #+begin_src emacs-lisp
+       (use-package avy
+	 :config
+	 (global-set-key (kbd "C-:") 'avy-goto-char)
+	 (global-set-key (kbd "C-.") 'avy-goto-char-timer)
+	 (global-set-key (kbd "M-g f") 'avy-goto-line)
+	 (global-set-key (kbd "M-g w") 'avy-goto-word-1))
+     #+end_src
 *** Programming
 **** Magit
      Magit is a 'git porcelain'.
@@ -245,8 +702,16 @@
        (use-package rainbow-delimiters
 	 :hook (prog-mode . rainbow-delimiters-mode))
      #+end_src
+**** Haskell
+     Haskell is a strange programming language.
+     #+begin_src emacs-lisp
+       (use-package haskell-mode)
+     #+end_src
 *** Org Mode
     Org Mode is, frankly, one of the best things to ever grace this hellish Earth. It can be used for writing, outlining, scheduling, literate programming and more.
     #+begin_src emacs-lisp
-      (add-hook 'text-mode-hook #'visual-line-mode) ; i'm not sure where else to put this line.
+      (use-package org-mode
+	:config
+	(add-hook 'text-mode-hook #'visual-line-mode))
     #+end_src
+    

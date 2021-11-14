@@ -23,4 +23,7 @@ if [ -f "$usermodmap" ]; then
 fi
 
 xcape &
+dunst &
+mpd-notification &
+
 exec bspwm

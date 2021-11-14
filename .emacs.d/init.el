@@ -44,6 +44,6 @@
 
 (use-package haskell-mode)
 
-(use-package org-mode
+(use-package org
   :config
   (add-hook 'text-mode-hook #'visual-line-mode))

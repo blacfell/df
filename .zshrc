@@ -12,7 +12,15 @@ unsetopt beep # stop making noise please
 
 export EDITOR=nvim
 
-PS1="%F{blue}%2~%f%# "
+PS1="%2~%f%# "
 
 alias ls="/usr/bin/exa -l"
 alias df="/usr/bin/df -h"
+
+#autostart mpd
+[ ! -s ~/.config/mpd/pid ] && mpd
+
+#autostart x
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+	exec startx
+fi

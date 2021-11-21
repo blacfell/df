@@ -25,5 +25,7 @@ fi
 xcape &
 dunst &
 mpd-notification &
+picom &
+feh --bg-scale --randomize $HOME/wall/* &
 
 exec bspwm

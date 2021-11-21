@@ -1,18 +1,34 @@
+[colors]
+bg = #2E3440
+bg-alt = #3B4252
+fg = #ECEFF4
+fg-alt = #E5E9F0
+
+blue = #81A1C1
+cyan = #88C0D0
+green = #A3BE8C
+orange = #D08770
+purple = #B48EAD
+red = #BF616A
+yellow = #EBCB8B
+
 [bar/mirri]
 modules-left = bspwm
 modules-center = xwindow
 modules-right = battery clock
 
 font-0 = "DejaVu Sans Mono:pixelsize=12;0"
+background = ${colors.bg}
+foreground = ${colors.fg}
 
 [module/bspwm]
 type = internal/bspwm
 
 pin-workspaces = true
 
-label-focused-background = #FFFF00
+label-focused-background = ${colors.yellow}
 label-focused-foreground = #000000
-label-empty-foreground = #B6B6B6
+label-empty-foreground = ${colors.fg-alt}
 
 label-focused = " %name% "
 label-occupied = " %name% "

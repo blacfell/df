@@ -1,5 +1,5 @@
 #!/bin/bash
-sxhkd &
+pgrep -x sxhkd > /dev/null || sxhkd &
 
 ~/.config/polybar/launch.sh &
 
@@ -12,3 +12,5 @@ else
 fi
 
 bspc rule -a Emacs state=tiled
+
+xsetroot -cursor_name left_ptr &

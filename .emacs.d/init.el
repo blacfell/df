@@ -28,9 +28,11 @@
       kept-old-versions 2
       version-control t)
 
-(use-package monokai-theme
+(use-package base16-theme)
+
+(use-package nord-theme
   :config
-  (load-theme 'monokai t))
+  (load-theme 'nord t))
 
 (set-face-attribute 'default nil :height 130)
 
@@ -44,7 +46,8 @@
   :diminish
   :config
   (counsel-mode)
-  (global-set-key (kbd "C-x b") #'counsel-switch-buffer))
+  (global-set-key (kbd "C-x b") #'counsel-switch-buffer)
+  (global-set-key (kbd "C-c t") #'counsel-load-theme))
 
 (use-package ivy-rich
   :config
@@ -88,7 +91,16 @@
   :config
   (which-key-mode))
 
-(use-package magit)
+(use-package magit
+  :config
+  (add-to-list 'tramp-methods
+	       '("yadm"
+		 (tramp-login-program "yadm")
+		 (tramp-login-args (("enter")))
+		 (tramp-login-env (("SHELL") ("/bin/sh")))
+		 (tramp-remote-shell "/bin/sh")
+		 (tramp-remote-shell-args ("-c"))))
+  (global-set-key (kbd "C-c y") '(lambda () (interactive) (magit-status "/yadm::"))))
 
 (use-package projectile
   :diminish

@@ -93,6 +93,7 @@
 
 (use-package magit
   :config
+  (require 'tramp)
   (add-to-list 'tramp-methods
 	       '("yadm"
 		 (tramp-login-program "yadm")

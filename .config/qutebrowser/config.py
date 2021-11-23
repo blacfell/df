@@ -23,6 +23,9 @@ c.content.pdfjs = True
 
 c.colors.webpage.preferred_color_scheme = 'dark'
 
+config.bind(',m', 'spawn umpv {url}')
+config.bind(',M', 'hint --rapid links spawn umpv {hint-url}')
+
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
 # Base16 qutebrowser template by theova
 # Nord scheme by arcticicestudio

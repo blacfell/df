@@ -14,6 +14,9 @@ export EDITOR=nvim
 
 PS1="%2~%f%# "
 
+path+=('/home/fangz/bin')
+export PATH
+
 alias ls="/usr/bin/exa -l"
 alias df="/usr/bin/df -h"
 

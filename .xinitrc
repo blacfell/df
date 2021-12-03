@@ -28,4 +28,10 @@ mpd-notification &
 picom &
 feh --bg-scale --randomize $HOME/wall/* &
 
-exec bspwm
+session=${1:-bspwm}
+
+case $session in
+    bspwm) exec i3;;
+    emacs|exwm) exec emacs;;
+    *) exec $1;;
+esac

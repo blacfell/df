@@ -19,6 +19,12 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-delete-old-versions t
+	auto-package-update-interval 7)
+  (auto-package-update-maybe))
+
 (use-package diminish)
 
 (setq backup-by-copying t ; hello mr emacs please do not put your FUCKing trash in my project folders please
@@ -34,7 +40,15 @@
   :config
   (load-theme 'nord t))
 
-(set-face-attribute 'default nil :height 130)
+(set-face-attribute 'default nil :height 200)
+
+(custom-theme-set-faces
+ 'user
+ '(variable-pitch ((t (:family "DejaVu Sans" :height 200))))
+ '(fixed-pitch ((t (:family "DejaVu Sans Mono" :height 200)))))
+
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'Info-mode-hook 'variable-pitch-mode)
 
 (use-package ivy
   :diminish
@@ -62,6 +76,11 @@
   (global-set-key (kbd "C-h v") #'helpful-variable)
   (global-set-key (kbd "C-h k") #'helpful-key))
 
+(use-package undo-tree
+  :diminish
+  :config
+  (global-undo-tree-mode))
+
 (use-package evil
   :init
   (setq evil-want-keybinding nil)
@@ -71,7 +90,7 @@
   (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-  (setq evil-undo-system 'undo-redo))
+  (evil-set-undo-system 'undo-tree))
 
 (use-package evil-collection
   :after evil
@@ -116,6 +135,21 @@
 
 (setq c-default-style "linux")
 
+(use-package slime
+  :config
+  (setq inferior-lisp-program "sbcl"))
+
+(use-package web-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
+
 (use-package yasnippet
   :diminish yas-minor-mode
   :config
@@ -123,9 +157,16 @@
 
 (use-package org
   :config
-  (add-hook 'text-mode-hook #'visual-line-mode)
-  (setq org-adapt-indentation t
-	org-hide-leading-stars t))
+  (dolist (face '((org-level-1 . 1.2)
+		  (org-level-2 . 1.1)
+		  (org-level-3 . 1.05)))
+    (set-face-attribute (car face) nil :font "DejaVu Sans Mono" :weight 'regular :height (cdr face)))
+  (setq org-adapt-indentation t))
+
+(use-package org-superstar
+  :config
+  (add-hook 'org-mode-hook (lambda ()
+			     (org-superstar-mode 1))))
 
 (use-package org-journal
   :init
@@ -143,3 +184,61 @@
 (use-package pdf-tools
   :config
   (pdf-tools-install))
+
+(global-set-key (kbd "C-c c") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+
+(use-package exwm
+  :config
+  (setq exwm-workspace-number 5)
+
+  (add-hook 'exwm-update-class-hook
+	    (lambda ()
+	      (exwm-workspace-rename-buffer exwm-class-name)))
+
+  (require 'exwm-randr)
+  (exwm-randr-enable)
+
+  (require 'exwm-systemtray)
+  (exwm-systemtray-enable)
+
+  (setq exwm-input-prefix-keys
+	'(?\C-x
+	  ?\C-u
+	  ?\C-h
+	  ?\M-x
+	  ?\M-`
+	  ?\M-&
+	  ?\M-:))
+  (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+  (setq exwm-input-global-keys
+	`((,(kbd "s-r") . exwm-reset)
+	  (,(kbd "s-h") . windmove-left)
+	  (,(kbd "s-s") . windmove-right)
+	  (,(kbd "s-n") . windmove-up)
+	  (,(kbd "s-t") . windmove-down)
+	  (,(kbd "s-o") . (lambda (command)
+		       (interactive (list (read-shell-command "$ ")))
+		       (start-process-shell-command command nil command)))
+	  (,(kbd "s-w") . exwm-workspace-switch)
+	  (,(kbd "s-`") . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+	  ,@(mapcar (lambda (i)
+		      `(,(kbd (format "s-%d" i)) .
+			(lambda ()
+			  (interactive)
+			  (exwm-workspace-switch-create ,i))))
+		    (number-sequence 0 9))))
+  (display-battery-mode 1)
+  (setq display-time-day-and-date t)
+  (display-time-mode 1)
+  (exwm-enable))
+
+(use-package desktop-environment
+  :diminish
+  :config
+  (setq desktop-environment-volume-toggle-command
+	"amixer -D pulse set Master toggle"
+	desktop-environment-volume-set-command
+	"amixer -D pulse set Master %s"
+	desktop-environment-volume-get-command
+	"amixer -D pulse get Master")
+  (desktop-environment-mode))

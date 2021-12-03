@@ -4,6 +4,9 @@ super + shift + Return
 super + o
       rofi -show run
 
+super + w
+      rofi -show window
+
 super +{_,shift +} q
       bspc node {-k,-c}
 

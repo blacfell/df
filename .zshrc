@@ -17,6 +17,9 @@ PS1="%2~%f%# "
 path+=('/home/fangz/bin')
 export PATH
 
+#no nut november config
+export NNN_OPENER="nuke"
+
 alias ls="/usr/bin/exa -l"
 alias df="/usr/bin/df -h"
 
@@ -25,5 +28,5 @@ alias df="/usr/bin/df -h"
 
 #autostart x
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-	exec startx
+	exec startx ~/.xinitrc emacs
 fi

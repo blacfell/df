@@ -42,12 +42,6 @@
 
 (set-face-attribute 'default nil :height 200)
 
-(custom-theme-set-faces
- 'user
- '(variable-pitch ((t (:family "DejaVu Sans" :height 200))))
- '(fixed-pitch ((t (:family "DejaVu Sans Mono" :height 200)))))
-
-(add-hook 'org-mode-hook 'variable-pitch-mode)
 (add-hook 'Info-mode-hook 'variable-pitch-mode)
 
 (use-package ivy
@@ -155,13 +149,20 @@
   :config
   (yas-global-mode 1))
 
+(defun nya/insert-subheading ()
+  "Insert subheading, but better"
+  (interactive)
+  (end-of-line)
+  (org-insert-subheading 4))
+
 (use-package org
   :config
   (dolist (face '((org-level-1 . 1.2)
 		  (org-level-2 . 1.1)
 		  (org-level-3 . 1.05)))
     (set-face-attribute (car face) nil :font "DejaVu Sans Mono" :weight 'regular :height (cdr face)))
-  (setq org-adapt-indentation t))
+  (setq org-adapt-indentation t)
+  (define-key org-mode-map (kbd "C-M-<return>") 'nya/insert-subheading))
 
 (use-package org-superstar
   :config
@@ -242,3 +243,8 @@
 	desktop-environment-volume-get-command
 	"amixer -D pulse get Master")
   (desktop-environment-mode))
+
+(use-package mpdel
+  :diminish
+  :config
+  (mpdel-mode))

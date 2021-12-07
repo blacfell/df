@@ -28,5 +28,5 @@ alias df="/usr/bin/df -h"
 
 #autostart x
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-	exec startx ~/.xinitrc emacs
+	exec startx ~/.xinitrc bspwm
 fi

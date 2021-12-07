@@ -1,0 +1,6 @@
+#!/bin/bash
+paru -Syu --devel --noconfirm
+yadm pull
+yadm submodule update --recursive
+paru -S --needed --noconfirm - < $HOME/.config/yadm/pkglist
+pacman -Qqe > $HOME/.config/yadm/pkglist

@@ -3,21 +3,16 @@
 #install paru
 if ! type "paru" > /dev/null; then
     doas pacman -S base-devel #i often forget about this
-    cd /tmp || exit 1
+    pushd -q /tmp || exit 1
     git clone https://aur.archlinux.org/paru.git || exit 1
-    cd paru || exit 1
+    pushd -q paru || exit 1
     makepkg -si --noconfirm
-fi
-
-#set shell to zsh
-if ! echo "${SHELL}" | grep -q '/quit'; then
-    doas pacman -S --noconfirm zsh #this will reinstall zsh if it already exists but idc
-    doas chsh -s "$(which zsh)" "$(whoami)"
+    popd -q
+    popd -q
 fi
 
 #use paru to install everything from package list
-while read line; do
-    paru -S --noconfirm "${line}"
-done < "$HOME/.config/yadm/pkglist"
+paru -S - < $HOME/.config/yadm/pkglist
+doas chsh -s "$(which zsh)" "$(whoami)"
 
 yadm submodule update --init --recursive

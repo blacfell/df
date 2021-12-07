@@ -31,7 +31,7 @@ feh --bg-scale --randomize $HOME/wall/* &
 session=${1:-bspwm}
 
 case $session in
-    bspwm) exec i3;;
+    bspwm) exec bspwm;;
     emacs|exwm) exec emacs;;
     *) exec $1;;
 esac

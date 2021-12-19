@@ -1,0 +1,2 @@
+* kitty's dotfiles
+  so here is my configuration. it has a lot of programs in it. it is managed with [[https://yadm.io/][yadm]].

@@ -1,2 +1,0 @@
-#!/bin/bash
-yadm rm -f $HOME/README.org

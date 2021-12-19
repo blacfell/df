@@ -11,6 +11,11 @@ else
 	bspc monitor eDP-1 -d I II III IV V VI VII VIII IX X
 fi
 
-bspc rule -a Emacs state=tiled
+bspc rule -a Emacs state=tiled #for some reason, emacs likes to start up floating
 
 xsetroot -cursor_name left_ptr &
+
+#starting some Nice Programs
+bspc rule -a URxvt -o desktop='^1'; urxvt &
+bspc rule -a qutebrowser -o desktop='^2'; qutebrowser &
+bspc rule -a Emacs -o desktop='^3'; emacs &

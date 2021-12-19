@@ -2,6 +2,12 @@
 (tool-bar-mode -1) ; turn off toolbar
 (scroll-bar-mode -1) ; turn off scrollbar
 (setq visible-bell t) ; i, frankly, don't quite like having loud doots screamed at me all the time.
+(column-number-mode)
+(size-indication-mode)
+(minibuffer-electric-default-mode)
+
+(setq save-interprogram-paste-before-kill t
+      yank-pop-change-selection t)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -144,10 +150,17 @@
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 
+(use-package smartparens
+  :config
+  (require 'smartparens-config)
+  (add-hook 'prog-mode-hook #'smartparens-mode))
+
 (use-package yasnippet
   :diminish yas-minor-mode
   :config
   (yas-global-mode 1))
+
+(use-package yasnippet-snippets)
 
 (defun nya/insert-subheading ()
   "Insert subheading, but better"
@@ -161,8 +174,12 @@
 		  (org-level-2 . 1.1)
 		  (org-level-3 . 1.05)))
     (set-face-attribute (car face) nil :font "DejaVu Sans Mono" :weight 'regular :height (cdr face)))
-  (setq org-adapt-indentation t)
-  (define-key org-mode-map (kbd "C-M-<return>") 'nya/insert-subheading))
+  (setq org-adapt-indentation t
+	org-hide-leading-stars t)
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (define-key org-mode-map (kbd "C-M-<return>") 'nya/insert-subheading)
+  (require 'ox-md)
+  (require 'ox-ascii))
 
 (use-package org-superstar
   :config
@@ -177,6 +194,10 @@
 	org-journal-date-format "%Y-%m-%d"
 	org-journal-file-type 'monthly))
 
+(use-package org-roam
+  :init
+  (setq org-roam-v2-ack t))
+
 (use-package company
   :diminish
   :config
@@ -188,50 +209,50 @@
 
 (global-set-key (kbd "C-c c") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 
-(use-package exwm
-  :config
-  (setq exwm-workspace-number 5)
+;; (use-package exwm
+;;   :config
+;;   (setq exwm-workspace-number 5)
 
-  (add-hook 'exwm-update-class-hook
-	    (lambda ()
-	      (exwm-workspace-rename-buffer exwm-class-name)))
+;;   (add-hook 'exwm-update-class-hook
+;; 	    (lambda ()
+;; 	      (exwm-workspace-rename-buffer exwm-class-name)))
 
-  (require 'exwm-randr)
-  (exwm-randr-enable)
+;;   (require 'exwm-randr)
+;;   (exwm-randr-enable)
 
-  (require 'exwm-systemtray)
-  (exwm-systemtray-enable)
+;;   (require 'exwm-systemtray)
+;;   (exwm-systemtray-enable)
 
-  (setq exwm-input-prefix-keys
-	'(?\C-x
-	  ?\C-u
-	  ?\C-h
-	  ?\M-x
-	  ?\M-`
-	  ?\M-&
-	  ?\M-:))
-  (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
-  (setq exwm-input-global-keys
-	`((,(kbd "s-r") . exwm-reset)
-	  (,(kbd "s-h") . windmove-left)
-	  (,(kbd "s-s") . windmove-right)
-	  (,(kbd "s-n") . windmove-up)
-	  (,(kbd "s-t") . windmove-down)
-	  (,(kbd "s-o") . (lambda (command)
-		       (interactive (list (read-shell-command "$ ")))
-		       (start-process-shell-command command nil command)))
-	  (,(kbd "s-w") . exwm-workspace-switch)
-	  (,(kbd "s-`") . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-	  ,@(mapcar (lambda (i)
-		      `(,(kbd (format "s-%d" i)) .
-			(lambda ()
-			  (interactive)
-			  (exwm-workspace-switch-create ,i))))
-		    (number-sequence 0 9))))
-  (display-battery-mode 1)
-  (setq display-time-day-and-date t)
-  (display-time-mode 1)
-  (exwm-enable))
+;;   (setq exwm-input-prefix-keys
+;; 	'(?\C-x
+;; 	  ?\C-u
+;; 	  ?\C-h
+;; 	  ?\M-x
+;; 	  ?\M-`
+;; 	  ?\M-&
+;; 	  ?\M-:))
+;;   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+;;   (setq exwm-input-global-keys
+;; 	`((,(kbd "s-r") . exwm-reset)
+;; 	  (,(kbd "s-h") . windmove-left)
+;; 	  (,(kbd "s-s") . windmove-right)
+;; 	  (,(kbd "s-n") . windmove-up)
+;; 	  (,(kbd "s-t") . windmove-down)
+;; 	  (,(kbd "s-o") . (lambda (command)
+;; 		       (interactive (list (read-shell-command "$ ")))
+;; 		       (start-process-shell-command command nil command)))
+;; 	  (,(kbd "s-w") . exwm-workspace-switch)
+;; 	  (,(kbd "s-`") . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+;; 	  ,@(mapcar (lambda (i)
+;; 		      `(,(kbd (format "s-%d" i)) .
+;; 			(lambda ()
+;; 			  (interactive)
+;; 			  (exwm-workspace-switch-create ,i))))
+;; 		    (number-sequence 0 9))))
+;;   (display-battery-mode 1)
+;;   (setq display-time-day-and-date t)
+;;   (display-time-mode 1)
+;;   (exwm-enable))
 
 (use-package desktop-environment
   :diminish
@@ -248,3 +269,5 @@
   :diminish
   :config
   (mpdel-mode))
+
+(use-package crux)

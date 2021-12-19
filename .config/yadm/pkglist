@@ -18,12 +18,15 @@ catimg
 chicago95-gtk-theme-git
 chicago95-icon-theme-git
 clerk-git
+clipmenu
 conky
 devour
 discord
+dl-musescore
 dnsmasq
 duf
 dunst
+dwarffortress
 dxvk-bin
 ed
 efibootmgr
@@ -31,6 +34,12 @@ emacs
 exa
 fakeroot
 fceux
+fcitx5
+fcitx5-configtool
+fcitx5-gtk
+fcitx5-mozc
+fcitx5-qt
+fcron
 feh
 flashplayer-standalone
 flex
@@ -52,6 +61,7 @@ i2pd
 imgbrd-grabber-git
 intel-ucode
 iptables-nft
+ispell
 kdenlive
 kmines
 lemonbar-xft-git
@@ -125,6 +135,7 @@ raylib
 reflector
 ripgrep
 rofi
+rsync
 rust
 rx
 rxvt-unicode
@@ -170,6 +181,7 @@ translate-shell
 trash-cli
 tuxracer
 twinejs-standalone
+ueberzug
 unrar
 unzip
 virt-manager
@@ -189,5 +201,10 @@ xorg-xsetroot
 xterm
 yadm
 yt-dlp-git
+ytfzf
+zathura
 zip
 zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
+zsh-vi-mode

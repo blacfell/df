@@ -26,3 +26,6 @@ XF86Audio{Raise,Lower}Volume
 
 super + l
       tdrop -ma -y 25 -s dropdown urxvt
+
+super + c
+      clipmenu

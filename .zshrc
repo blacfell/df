@@ -2,7 +2,7 @@ zstyle :compinstall filename '/home/fangz/.zshrc'
 autoload -Uz compinit
 compinit
 
-bindkey -e
+bindkey -v
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -19,12 +19,17 @@ export PATH
 
 #no nut november config
 export NNN_OPENER="nuke"
+export CM_LAUNCHER="rofi"
 
 alias ls="/usr/bin/exa -l"
 alias df="/usr/bin/df -h"
 
 #autostart mpd
 [ ! -s ~/.config/mpd/pid ] && mpd
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
 
 #autostart x
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then

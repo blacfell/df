@@ -22,11 +22,13 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-xcape &
-dunst &
-mpd-notification &
-picom &
-feh --bg-scale --randomize $HOME/wall/* &
+xcape & #pressing CTRL alone = ESC
+dunst & #notification daemon
+mpd-notification & #mpd notifs
+picom & #compositor
+feh --bg-scale --randomize $HOME/wall/* & #wallpaper
+clipmenud & #clipboard manager
+fcitx5 & #japanese input
 
 session=${1:-bspwm}
 

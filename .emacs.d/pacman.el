@@ -11,3 +11,11 @@
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;; let us ignore silly nonsense in the minor mode list
+(use-package diminish)
+
+;; enable autoupdates
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-delete-old-versions t))

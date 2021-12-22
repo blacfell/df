@@ -12,8 +12,8 @@
 	       (tramp-remote-shell "/bin/sh")
 	       (tramp-remote-shell-args ("-c"))))
 
-(defun meow/yadm-status ()
+(defun yadm-status ()
   (interactive)
   (magit-status "/yadm::"))
 
-(global-set-key (kbd "C-c y") 'meow/yadm-status)
+(global-set-key (kbd "C-c y") 'yadm-status)

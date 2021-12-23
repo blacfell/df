@@ -2,7 +2,13 @@ zstyle :compinstall filename '/home/fangz/.zshrc'
 autoload -Uz compinit
 compinit
 
-bindkey -v
+# enable vi mode, as long as the shell is not inside emacs.
+# this is because having both zsh vi mode and evil is redundant
+if [[ ! -v INSIDE_EMACS ]]; then
+    bindkey -v
+else
+    bindkey -e
+fi
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -29,7 +35,11 @@ alias df="/usr/bin/df -h"
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+
+# see setkey -v/e above
+if [[ ! -v INSIDE_EMACS ]]; then
+    source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+fi
 
 #autostart x
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then

@@ -2,3 +2,7 @@
 (tool-bar-mode -1) ;; removes the toolbar
 ;; i usually remove the menu bar but i feel like keeping it right now
 (setq visible-bell t)
+
+(use-package nord-theme
+  :config
+  (load-theme 'nord t))

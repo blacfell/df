@@ -33,6 +33,11 @@ alias df="/usr/bin/df -h"
 #autostart mpd
 [ ! -s ~/.config/mpd/pid ] && mpd
 
+#start emacs daemon if it's not already running
+if ! emacsclient -e 0 >&/dev/null; then
+    emacs --daemon
+fi
+
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 

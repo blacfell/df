@@ -1,5 +1,9 @@
 ;; package management - unrelated to arch's pacman
 
+;; natively compile packages when using emacs >=28
+;; currently i am using emacs-native-comp-git-enhanced from the AUR
+(setq package-native-compile t)
+
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t) ;; add melpa to repositories

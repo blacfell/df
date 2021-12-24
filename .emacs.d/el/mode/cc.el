@@ -1,6 +1,6 @@
 ;; cc-mode provides editing modes for c, c++ and similar languages.
 ;; i currently mainly use c so i will use that functionality mainly.
-(setq c-default-style "linux") ;; the default is gnu style, which is an affront to humanity
+(setq c-default-style "linux") ; the default is gnu style, which is an affront to humanity
 
 ;; these are from from emacs wiki
 (defun meow/move-function-up ()

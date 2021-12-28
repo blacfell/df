@@ -29,17 +29,13 @@ export CM_LAUNCHER="rofi"
 
 alias ls="/usr/bin/exa -l"
 alias df="/usr/bin/df -h"
+alias em="/usr/bin/emacsclient -t"
 
 #autostart mpd
 [ ! -s ~/.config/mpd/pid ] && mpd
 
-#start emacs daemon if it's not already running
-if ! emacsclient -e 0 >&/dev/null; then
-    emacs --daemon
-fi
-
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # see setkey -v/e above
 if [[ ! -v INSIDE_EMACS ]]; then

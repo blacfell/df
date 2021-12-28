@@ -19,3 +19,4 @@
   :after evil
   :config
   (evil-collection-init))
+

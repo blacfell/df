@@ -16,3 +16,5 @@ paru -S - < $HOME/.config/yadm/pkglist
 doas chsh -s "$(which zsh)" "$(whoami)"
 
 yadm submodule update --init --recursive
+
+systemctl enable --user --now emacs

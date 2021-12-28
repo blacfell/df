@@ -1,10 +1,10 @@
 ;; emacs terminal
 
-(defun meow/run-zsh-term-in-new-window ()
-  "Run a zsh terminal in ansi-term in a new window."
+(defun meow/zsh ()
+  "Run a zsh terminal in ansi-term in a new window"
   (interactive)
   (split-window-sensibly)
   (other-window 1)
-  (ansi-term (executable-find "zsh")))
+  (term "/usr/bin/zsh"))
 
-(global-set-key (kbd "C-c t") 'meow/run-zsh-term-in-new-window)
+(global-set-key (kbd "C-c t") 'meow/zsh)

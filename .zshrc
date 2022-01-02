@@ -14,14 +14,7 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-unsetopt beep # stop making noise please
-
-export EDITOR=nvim
-
 PS1="%2~%f%# "
-
-path+=('/home/fangz/bin')
-export PATH
 
 #no nut november config
 export NNN_OPENER="nuke"
@@ -30,19 +23,22 @@ export CM_LAUNCHER="rofi"
 alias ls="/usr/bin/exa -l"
 alias df="/usr/bin/df -h"
 alias em="/usr/bin/emacsclient -t"
+alias dem="SUDO_EDITOR=\"emacsclient -t -a nvim\" sudoedit"
+
+alias d="/usr/bin/devour"
 
 #autostart mpd
 [ ! -s ~/.config/mpd/pid ] && mpd
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # see setkey -v/e above
 if [[ ! -v INSIDE_EMACS ]]; then
     source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
 fi
 
-#autostart x
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-	exec startx ~/.xinitrc bspwm
-fi
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# there are approximately zero circumstances in which I want this folder to exist.
+# this won't delete it if there's something it there; i'll handle that manually
+[ -d $HOME/Downloads ] && rmdir Downloads

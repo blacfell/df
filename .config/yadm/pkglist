@@ -55,6 +55,7 @@ gst-plugins-bad
 gst-plugins-base
 gst-plugins-good
 gst-plugins-ugly
+howdoi
 htop
 hugo
 i2pd
@@ -62,6 +63,7 @@ imgbrd-grabber-git
 intel-ucode
 iptables-nft
 ispell
+jisho
 kdenlive
 kmines
 lemonbar-xft-git
@@ -84,6 +86,7 @@ make
 makehuman
 man-db
 man-pages
+mg
 milkytracker
 minecraft-launcher
 moon-buggy

@@ -1,20 +1,10 @@
 #!/bin/bash
 
-#this is certified double plus ungood
-download_new_packages () {
-	diff -q --color=never $HOME/.config/yadm/.pkglist.old $HOME/.config/yadm/pkglist | \
-		tail -n +5 | \
-		grep '^+' | \
-		awk '{print substr($1,2); }' | \
-		paru -S -
-}
+echo -e "Installing arch packages..."
+paru -Syu --devel --noconfirm
 
-date -Iseconds >> $HOME/.update.log
-paru -Syu --devel --noconfirm | tee -a $HOME/.update.log
-cp $HOME/.config/yadm/pkglist $HOME/.config/yadm/.pkglist.old
-yadm pull | tee -a $HOME/.update.log
-yadm submodule update --recursive | tee -a $HOME/.update.log
-#download_new_packages | tee -a $HOME/.update.log
-# TODO make this shit work
-pacman -Qqe > $HOME/.config/yadm/pkglist | tee -a $HOME/.update.log
-echo "------" >> $HOME/.update.log
+echo -e "\nPulling from remote repository..."
+yadm pull
+
+echo -e "\nUpdating git submodules..."
+yadm submodule update --recursive

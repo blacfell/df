@@ -1,1 +1,5 @@
-@theme "/usr/share/rofi/themes/sidebar.rasi"
+@theme "rofi-themes-collection/themes/squared-nord.rasi"
+
+* {
+  font:	"DejaVu Sans Mono 15";
+}

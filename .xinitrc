@@ -22,6 +22,10 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
+#this helps with minecraft apparently
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+
 xcape & #pressing CTRL alone = ESC
 dunst & #notification daemon
 mpd-notification & #mpd notifs

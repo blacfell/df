@@ -1,1 +1,1 @@
-rofi-ddgr/ddgr_search.sh
+/home/fangz/.config/rofi/rofi-ddgr/ddgr_search.sh

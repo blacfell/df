@@ -1,0 +1,1 @@
+rofi-ddgr/ddgr_search.sh

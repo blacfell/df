@@ -23,7 +23,7 @@
   :custom
   (org-roam-directory "~/.roam")
   (org-roam-dailies-capture-templates
-   '(("d" "default" entry "* %<%H:%S>: %?"
+   '(("d" "default" entry "* %<%H:%M>: %?"
       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
   :bind (("C-c n l" . org-roam-buffer-toggle)
 	 ("C-c n f" . org-roam-node-find)

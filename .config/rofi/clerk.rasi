@@ -1,0 +1,9 @@
+@import "nord-rofi-theme/nord.rasi"
+
+* {
+  font: "DejaVu Sans Mono 11";
+}
+
+window {
+  width: 100%;
+}

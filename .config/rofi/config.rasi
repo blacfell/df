@@ -3,3 +3,7 @@
 * {
   font:	"DejaVu Sans Mono 15";
 }
+
+window {
+  width: 50%;
+}

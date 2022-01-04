@@ -5,3 +5,6 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
+
+(setq auto-save-list-file-prefix "~/.autosaves/"
+      auto-save-file-name-transforms '((".*" "~/.autosaves/" t)))

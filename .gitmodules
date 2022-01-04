@@ -7,3 +7,6 @@
 [submodule ".config/rofi/rofi-themes-collection"]
 	path = .config/rofi/rofi-themes-collection
 	url = https://github.com/lr-tech/rofi-themes-collection
+[submodule ".config/rofi/rofi-ddgr"]
+	path = .config/rofi/rofi-ddgr
+	url = https://github.com/gmagno/rofi-ddgr

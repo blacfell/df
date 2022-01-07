@@ -1,3 +1,4 @@
+# vim: ft=dosini
 [colors]
 bg = #2E3440
 bg-alt = #3B4252
@@ -17,7 +18,7 @@ modules-left = bspwm
 modules-center = xwindow
 modules-right = battery clock
 
-font-0 = "DejaVu Sans Mono:pixelsize=12;0"
+font-0 = "Terminus:pixelsize=15;0"
 background = ${colors.bg}
 foreground = ${colors.fg}
 

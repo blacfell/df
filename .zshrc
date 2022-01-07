@@ -30,7 +30,7 @@ alias d="/usr/bin/devour"
 #autostart mpd
 [ ! -s ~/.config/mpd/pid ] && mpd
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # see setkey -v/e above
 if [[ ! -v INSIDE_EMACS ]]; then

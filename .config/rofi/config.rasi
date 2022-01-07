@@ -1,7 +1,7 @@
 @theme "rofi-themes-collection/themes/squared-nord.rasi"
 
 * {
-  font:	"DejaVu Sans Mono 15";
+  font:	"Terminus 15";
 }
 
 window {

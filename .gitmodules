@@ -10,3 +10,6 @@
 [submodule ".config/rofi/rofi-ddgr"]
 	path = .config/rofi/rofi-ddgr
 	url = https://github.com/gmagno/rofi-ddgr
+[submodule ".config/rofi/dmenu-hotkeys"]
+	path = .config/rofi/dmenu-hotkeys
+	url = https://github.com/maledorak/dmenu-hotkeys

@@ -26,7 +26,10 @@ c.colors.webpage.preferred_color_scheme = 'dark'
 config.bind(',m', 'spawn umpv {url}')
 config.bind(',M', 'hint --rapid links spawn umpv {hint-url}')
 config.bind(',i', 'hint --rapid all download')
-config.bind(',c', 'hint --rapid links yank')
+config.bind(',c', 'hint links yank')
+
+c.fonts.default_family = "Terminus"
+c.fonts.default_size = "12pt"
 
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
 # Base16 qutebrowser template by theova

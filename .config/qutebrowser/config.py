@@ -19,6 +19,8 @@ config.bind('L', 'search-prev')
 c.hints.chars = 'aoeuidhtns'
 c.downloads.location.directory = '~/rxv'
 
+c.url.searchengines = {"DEFAULT": "http://127.0.0.1:8888/search?q={}"} # searx
+
 c.content.pdfjs = True
 
 c.colors.webpage.preferred_color_scheme = 'dark'

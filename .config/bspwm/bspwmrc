@@ -15,6 +15,7 @@ bspc config window_gap 0
 
 bspc rule -a Emacs state=tiled #for some reason, emacs likes to start floating
 bspc rule -a feh state=floating
+bspc rule -a mpv state=floating sticky=on rectangle=426x240+1400+800
 
 xsetroot -cursor_name left_ptr &
 
@@ -22,4 +23,3 @@ xsetroot -cursor_name left_ptr &
 bspc rule -a URxvt -o desktop='^1'; urxvt &
 bspc rule -a qutebrowser -o desktop='^2'; qutebrowser &
 bspc rule -a Emacs -o desktop='^3'; emacsclient -c &
-

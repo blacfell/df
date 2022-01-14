@@ -22,6 +22,10 @@ super + {_,shift +}{1-9,0}
 super + {_,shift +}{h,t,n,s}
       bspc node -{f,s} {west,south,north,east} --follow
 
+# %%hotkey: switch layouts %%
+super + Tab
+      bspc desktop -l next
+
 # %%hotkey: reload bspwm and sxhkd %%
 super + Escape
       pkill -USR1 -x sxhkd;\
@@ -47,14 +51,14 @@ super + m ; {p,shift + comma,shift + period,f,b}
 super + m ; {s, a}
       clerk {-t,-a}
 
+# %%hotkey: run qutebrowser command from rofi %%
+super + d
+      rofi -show qbcmd -modi "qbcmd:rofi-qbcmd"
+
 # https://github.com/gmagno/rofi-ddgr
 # %%hotkey: search via ddg with rofi-ddgr %%
-super + d
-      rofi -lines 5 -eh 3 -show ddgrsearch -modi "ddgrsearch:ddgr_search.sh"
-
-# %%hotkey: run qutebrowser command from rofi %%
 super + shift + d
-      rofi -show qbcmd -modi "qbcmd:rofi-qbcmd"
+      rofi -lines 5 -eh 3 -show ddgrsearch -modi "ddgrsearch:ddgr_search.sh"
 
 # %%hotkey: rofi-pass password menu %%
 super + p

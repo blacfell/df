@@ -20,8 +20,8 @@ PS1="%2~%f%# "
 export NNN_OPENER="nuke"
 export CM_LAUNCHER="rofi"
 
-alias ls="/usr/bin/exa -l"
-alias df="/usr/bin/df -h"
+alias ls="/usr/bin/exa --long --grid --time-style=long-iso"
+alias df="btrfs filesystem df /" # df reports free space in btrfs inaccurately
 alias em="/usr/bin/emacsclient -t"
 alias dem="SUDO_EDITOR=\"emacsclient -t -a nvim\" sudoedit"
 

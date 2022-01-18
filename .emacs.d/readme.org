@@ -1,0 +1,9 @@
+* kitty's Emacs config
+  Sometimes, I like to use Emacs. I think it's a good environment for
+  programming and writing text (which is what I'm doing right now),
+  it's extremely extensible, it has a nice interface and it has some
+  of the best packages for anything ever.
+
+  I have my Emacs config spread out into different files, because I
+  think it's cool. So far it's working pretty well. All of my config
+  scripts are in el/.

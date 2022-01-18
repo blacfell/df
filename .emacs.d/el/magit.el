@@ -16,4 +16,11 @@
   (interactive)
   (magit-status "/yadm::"))
 
+(defun meow/yadm-add-this-file ()
+  "Add current buffer's file the yadm repository."
+  (interactive)
+  (unless (string-match (string-join `("^/home/" ,(user-login-name) "/")) (buffer-file-name))
+    (shell-command (string-join `("/usr/bin/yadm add " ,(buffer-file-name))))))
+
 (global-set-key (kbd "C-c y") 'yadm-status)
+(global-set-key (kbd "C-c a") 'meow/yadm-add-this-file)

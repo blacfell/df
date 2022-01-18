@@ -27,6 +27,9 @@ alias dem="SUDO_EDITOR=\"emacsclient -t -a nvim\" sudoedit"
 
 alias d="/usr/bin/devour"
 
+alias fucking="/usr/bin/doas"
+alias please="/usr/bin/doas !!"
+
 #autostart mpd
 [ ! -s ~/.config/mpd/pid ] && mpd
 
@@ -35,9 +38,13 @@ alias d="/usr/bin/devour"
 # see setkey -v/e above
 if [[ ! -v INSIDE_EMACS ]]; then
     source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+    zvm_after_init_commands+=('source /usr/share/fzf/key-bindings.zsh && source /usr/share/fzf/completion.zsh')
+else
+    source /usr/share/fzf/key-bindings.zsh && source /usr/share/fzf/completion.zsh
 fi
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 
 # there are approximately zero circumstances in which I want this folder to exist.
 # this won't delete it if there's something it there; i'll handle that manually

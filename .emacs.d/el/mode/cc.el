@@ -2,6 +2,10 @@
 ;; i currently mainly use c so i will use that functionality mainly.
 (setq c-default-style "linux") ; the default is gnu style, which is an affront to humanity
 
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c o") 'ff-find-other-file)))
+
 ;; these are from from emacs wiki
 (defun meow/move-function-up ()
   "Move function at point up."

@@ -1,0 +1,4 @@
+* The "binaries" folder
+  This is a folder of scripts that is put in my =$PATH=. It contains a
+  rudimentary update script as well as some scripts I find useful by
+  other people.

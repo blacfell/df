@@ -1,0 +1,9 @@
+* Hell config
+  Welcome to my horrible config. This is where the settings for my
+  programs go, so people can look at them or copy shit from them or
+  whatever. Many programs will have their own specific documentation,
+  so you can look there for more.
+
+* Screenshots
+  #+CAPTION: Image of my setup with =htop= and =cmatrix= open. Dated 2022-01-18
+  [[./pic/img-2022-01-18-231723.png]]

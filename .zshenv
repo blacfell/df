@@ -6,9 +6,6 @@ path+=("$HOME/bin")
 path+=("$HOME/.lemonbar")
 export PATH
 
-### lemonbar ###
-export PANEL_FIFO=/tmp/panel-fifo
-export PANEL_HEIGHT=24
-export PANEL_FONT="Terminus"
-export PANEL_WM_NAME=bspwm_panel
+HOWDOI_COLORIZE=1
+
 . "$HOME/.cargo/env"

@@ -9,3 +9,4 @@
   (load-theme 'doom-nord t))
 
 (set-face-attribute 'default nil :family "Terminus" :height 200)
+;(set-face-font 'default "-misc-fixed-medium-r-normal--15-140-75-75-c-90-iso8859-1")

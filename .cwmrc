@@ -1,0 +1,65 @@
+# vim: ft=conf
+command term		urxvt
+command qutebrowser	qutebrowser
+command emacs		"emacsclient -c"
+command nnn		"urxvt -e sh -c nnn"
+command ncmpcpp		"urxvt -e sh -c ncmpcpp"
+
+wm bspwm		bspwm
+
+#rebinding these to Dvorak keys
+unbind-key M-h
+unbind-key M-j
+unbind-key M-k
+unbind-key M-l
+unbind-key CM-h
+unbind-key CM-j
+unbind-key CM-k
+unbind-key CM-l
+unbind-key MS-h
+unbind-key MS-j
+unbind-key MS-k
+unbind-key MS-l
+unbind-key CMS-h
+unbind-key CMS-j
+unbind-key CMS-k
+unbind-key CMS-l
+
+unbind-key CM-s
+unbind-key CM-n
+unbind-key M-Tab
+unbind-key MS-Tab
+
+bind-key M-h 		window-move-left
+bind-key M-t		window-move-down
+bind-key M-n		window-move-up
+bind-key M-s		window-move-right
+
+bind-key MS-h		window-move-left-big
+bind-key MS-t		window-move-down-big
+bind-key MS-n		window-move-up-big
+bind-key MS-s		window-move-right-big
+
+bind-key CM-h 		window-resize-left
+bind-key CM-t		window-resize-down
+bind-key CM-n		window-resize-up
+bind-key CM-s		window-resize-right
+
+bind-key CMS-h		window-resize-left-big
+bind-key CMS-t		window-resize-down-big
+bind-key CMS-n		window-resize-up-big
+bind-key CMS-s		window-resize-right-big
+
+bind-key CM-l		window-menu-label
+bind-key M-Tab		window-cycle-ingroup
+bind-key MS-Tab		window-rcycle-ingroup
+
+bind-key 4-1		group-only-1
+bind-key 4-2		group-only-2
+bind-key 4-3		group-only-3
+bind-key 4-4		group-only-4
+bind-key 4-5		group-only-5
+bind-key 4-6		group-only-6
+bind-key 4-7		group-only-7
+bind-key 4-8		group-only-8
+bind-key 4-9		group-only-9

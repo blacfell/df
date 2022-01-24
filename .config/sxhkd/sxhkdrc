@@ -36,8 +36,13 @@ XF86Audio{Raise,Lower}Volume
       pactl set-sink-volume 0 {+,-}5%
 
 # %%hotkey: toggle dropdown terminal %%
-super + l
-      tdrop -ma -y 25 -s dropdown urxvt
+#super + l
+#      tdrop -ma -y 25 -s dropdown urxvt
+
+# %%hotkey: ncmpcpp dropdown %%
+super + m ; m
+	bspc rule -a *:ncmpcpp -o state=floating sticky=on;\
+	urxvt -name "ncmpcpp" -e sh -c ncmpcpp
 
 # %%hotkey: open clipboard manager %%
 super + c
@@ -71,3 +76,8 @@ super + r
 # %%hotkey: open dmenu-hotkeys %%
 super + k
       dmenu_hotkeys run -m rofi -a bspwm
+
+# %%hotkey: open emacs %%
+super + e
+      bspc rule -a Emacs:emacs -o state=floating sticky=on;\
+      emacsclient --eval "(setenv \"DISPLAY\" \"$DISPLAY\")" --eval "(emacs-everywhere)"

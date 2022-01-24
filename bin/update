@@ -8,3 +8,6 @@ yadm pull
 
 echo -e "\nUpdating git submodules..."
 yadm submodule update --recursive
+
+echo -e "\nUpdating Nvim plugins..."
+nvim "+:PlugUpdate" "+:qa"

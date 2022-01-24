@@ -1,0 +1,8 @@
+#!/bin/sh
+killall -q lemonbar
+
+conky | lemonbar \
+	-f 9x15 \
+	-B "#2E3440" \
+	-F "#ECEFF4" \
+	| sh

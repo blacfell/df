@@ -1,4 +1,5 @@
 zstyle :compinstall filename '/home/fangz/.zshrc'
+zstyle ":completion:*:commands" rehash 1
 autoload -Uz compinit
 compinit
 
@@ -49,3 +50,5 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # there are approximately zero circumstances in which I want this folder to exist.
 # this won't delete it if there's something it there; i'll handle that manually
 [ -d $HOME/Downloads ] && rmdir Downloads
+
+shuf -n 1 $HOME/.quotes | ponysay

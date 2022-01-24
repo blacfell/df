@@ -1,5 +1,6 @@
-URxvt.font: xft:Terminus:regular:size=20
-URxvt.letterSpace: 0
+!URxvt.font: xft:Terminus:regular:size=12
+URxvt.font: 9x15
+!URxvt.letterSpace: 0
 URxvt.scrollBar: false
 
 URxvt*scrollTtyOutput: false
@@ -12,6 +13,9 @@ URxvt.perl-ext-common: default,matcher
 
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 
 ! Copyright (c) 2016-present Arctic Ice Studio <development@arcticicestudio.com>
 ! Copyright (c) 2016-present Sven Greb <code@svengreb.de>

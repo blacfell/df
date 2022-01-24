@@ -22,22 +22,20 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-#this helps with minecraft apparently
-eval $(gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
-
 xcape & #pressing CTRL alone = ESC
 dunst & #notification daemon
-mpd-notification & #mpd notifs
+pgrep -x mpd-notification > /dev/null || mpd-notification &
 picom & #compositor
 feh --bg-scale --randomize $HOME/wall/* & #wallpaper
 clipmenud & #clipboard manager
 fcitx5 & #japanese input
+pgrep x udiskie > /dev/null || udiskie & #automounter
 
 session=${1:-bspwm}
 
 case $session in
     bspwm) exec bspwm;;
+    cwm) exec cwm;;
     emacs|exwm) exec emacs;;
     *) exec $1;;
 esac

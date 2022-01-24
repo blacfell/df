@@ -1,7 +1,8 @@
 #!/bin/bash
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-~/.config/polybar/launch.sh &
+#~/.config/polybar/launch.sh &
+~/.config/lemonbar/lb-conky &
 
 if [[ $(hostname) == "kucing" ]]
 then
@@ -18,6 +19,8 @@ bspc rule -a feh state=floating
 bspc rule -a mpv state=floating sticky=on rectangle=426x240+1450+800
 
 xsetroot -cursor_name left_ptr &
+#make lemonbar stop being above fullscreen applications
+xdo above -t "$(xdo id -n root)" "$(xdo id -a bar)"
 
 #starting some Nice Programs
 bspc rule -a URxvt -o desktop='^1'; urxvt &

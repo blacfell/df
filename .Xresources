@@ -1,5 +1,5 @@
-!URxvt.font: xft:Terminus:regular:size=12
-URxvt.font: 9x15
+URxvt.font: xft:Terminus:regular:size=12
+!URxvt.font: 9x15
 !URxvt.letterSpace: 0
 URxvt.scrollBar: false
 

@@ -2,7 +2,8 @@
 killall -q lemonbar
 
 conky | lemonbar \
-	-f 9x15 \
+	-f "-xos4-terminus-medium-r-normal--12-120-*-*-*-*-*-*" \
 	-B "#2E3440" \
 	-F "#ECEFF4" \
 	| sh
+

@@ -8,5 +8,4 @@
   ;; this whole thing is needed to make nord work when emacs is a daemon
   (load-theme 'doom-nord t))
 
-(set-face-attribute 'default nil :family "Terminus" :height 200)
-;(set-face-font 'default "-misc-fixed-medium-r-normal--15-140-75-75-c-90-iso8859-1")
+(set-face-attribute 'default nil :family "Terminus" :height 120)

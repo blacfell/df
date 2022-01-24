@@ -15,7 +15,8 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-PS1="%2~%f%# "
+PS1="%0(?.%K{green}%F{black}.%K{red}%F{white})%n@%m%f%k%# "
+RPS1="%B%2~%b %D{%Y-%m-%d %H:%M:%S}"
 
 #no nut november config
 export NNN_OPENER="nuke"

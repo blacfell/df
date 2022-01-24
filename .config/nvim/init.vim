@@ -18,6 +18,7 @@ Plug 'easymotion/vim-easymotion'
 
 " extra language support {{{
 Plug 'ziglang/zig.vim'
+Plug 'jceb/vim-orgmode'
 " }}}
 
 call plug#end()

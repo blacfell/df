@@ -13,6 +13,7 @@
   (require 'ox-md)
   (require 'ox-ascii)
   (require 'ox-man)
+  (setq org-html-self-link-headlines t)
   (define-key org-mode-map (kbd "C-M-<return>") 'meow/insert-subheading))
 
 ;; i'm just copying this. i can do what i want
@@ -39,3 +40,21 @@
   (require 'org-roam-dailies)
   (org-roam-setup))
   
+(setq org-publish-project-alist '(("pages"
+					:base-directory "~/prj/site/src/"
+					:base-extension "org"
+					:recursive t
+					:html-doctype "html5"
+					;:html-html5-fancy t
+					:publishing-directory "~/prj/site/html/"
+					:publishing-function org-html-publish-to-html)
+
+				    ("static"
+					:base-directory "~/prj/site/src/"
+					:base-extension "css\\|txt\\|jpg\\|gif\\|png"
+					:recursive t
+					:publishing-directory "~/prj/site/html/"
+					:publishing-function org-publish-attachment)
+
+				    ("kitty"
+					:components ("pages" "static"))))

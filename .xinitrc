@@ -30,6 +30,7 @@ feh --bg-scale --randomize $HOME/wall/* & #wallpaper
 clipmenud & #clipboard manager
 fcitx5 & #japanese input
 pgrep x udiskie > /dev/null || udiskie & #automounter
+/usr/lib/xfce-polkit/xfce-polkit &
 
 session=${1:-bspwm}
 

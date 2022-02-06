@@ -41,8 +41,8 @@ XF86Audio{Raise,Lower}Volume
 
 # %%hotkey: ncmpcpp dropdown %%
 super + m ; m
-	bspc rule -a *:ncmpcpp -o state=floating sticky=on;\
-	urxvt -name "ncmpcpp" -e sh -c ncmpcpp
+      bspc rule -a *:ncmpcpp -o state=floating sticky=on;\
+      urxvt -name "ncmpcpp" -e sh -c ncmpcpp
 
 # %%hotkey: open clipboard manager %%
 super + c

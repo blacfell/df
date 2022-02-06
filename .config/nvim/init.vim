@@ -5,6 +5,7 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'simnalamburt/vim-mundo'
+Plug 'SirVer/ultisnips'
 " }}}
 
 " move around WITH STYLE {{{
@@ -53,10 +54,15 @@ nnoremap <leader>f :Files<cr>
 nnoremap <leader>m :Man<space>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>u :MundoToggle<cr>
+
+inoremap <C-BS> <C-W>
+inoremap <M-BS> <C-W>
 " }}}
 
 " plugin config {{{
 let g:EasyMotion_keys = 'aoeuidhtns-'
+
+let g:UltiSnipsEditSplit = "vertical"
 " }}}
 
 " autocommands {{{

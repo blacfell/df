@@ -11,6 +11,8 @@ else
     bindkey -e
 fi
 
+setopt AUTO_CD
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -21,6 +23,11 @@ RPS1="%B%2~%b %D{%Y-%m-%d %H:%M:%S}"
 #no nut november config
 export NNN_OPENER="nuke"
 export CM_LAUNCHER="rofi"
+
+#some epic chungus functions and aliases
+mares_nest () {
+	shuf -n 1 $HOME/.quotes | ponysay
+}
 
 alias ls="/usr/bin/exa --long --grid --time-style=long-iso"
 alias df="btrfs filesystem df /" # df reports free space in btrfs inaccurately
@@ -35,8 +42,6 @@ alias please="/usr/bin/doas !!"
 #autostart mpd
 [ ! -s ~/.config/mpd/pid ] && mpd
 
-#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 # see setkey -v/e above
 if [[ ! -v INSIDE_EMACS ]]; then
     source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
@@ -47,9 +52,4 @@ fi
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-
-# there are approximately zero circumstances in which I want this folder to exist.
-# this won't delete it if there's something it there; i'll handle that manually
-[ -d $HOME/Downloads ] && rmdir Downloads
-
-shuf -n 1 $HOME/.quotes | ponysay
+mares_nest

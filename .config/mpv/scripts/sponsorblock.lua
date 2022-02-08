@@ -1,1 +1,0 @@
-mpv_sponsorblock/sponsorblock.lua

@@ -72,4 +72,9 @@ augroup filetype_vim
 	autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
+" text {{{
+augroup filetype_text
+	autocmd!
+	autocmd FileType text setlocal textwidth=80
+" }}}
 " }}}

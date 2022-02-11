@@ -4,7 +4,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 #~/.config/polybar/launch.sh &
 ~/.config/lemonbar/lb-conky &
 
-if [[ $(hostname) == "kucing" ]]
+if [[ $(uname -n) == "kucing" ]]
 then
 	bspc monitor DVI-I-1 -d I II III IV V
 	bspc monitor HDMI-1 -d VI VII VIII IX X
@@ -20,7 +20,8 @@ bspc rule -a mpv state=floating sticky=on rectangle=426x240+1450+800
 
 xsetroot -cursor_name left_ptr &
 #make lemonbar stop being above fullscreen applications
-xdo above -t "$(xdo id -n root)" "$(xdo id -a bar)"
+#making it work for multiple monitors
+xdo id -n root | awk '{system("xdo above -t " $1 " $(xdo id -a bar | head -" NR " | tail -1)")}'
 
 #starting some Nice Programs
 bspc rule -a URxvt -o desktop='^1'; urxvt &

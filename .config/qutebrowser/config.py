@@ -19,7 +19,8 @@ config.bind('L', 'search-prev')
 c.hints.chars = 'aoeuidhtns'
 c.downloads.location.directory = '~/rxv'
 
-c.url.searchengines = {"DEFAULT": "http://127.0.0.1:8888/search?q={}"} # searx
+#c.url.searchengines = {"DEFAULT": "http://127.0.0.1:8888/search?q={}"} # searx
+c.url.searchengines = {"DEFAULT": "https://duckduckgo.com/?q={}"}
 
 c.content.pdfjs = True
 c.content.autoplay = False
@@ -48,6 +49,7 @@ c.content.blocking.adblock.lists = [
         "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
         "https://www.i-dont-care-about-cookies.eu/abp/",
     ]
+c.content.blocking.method = "both"
 
 c.colors.webpage.preferred_color_scheme = 'dark'
 

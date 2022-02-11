@@ -6,9 +6,9 @@ compinit
 # enable vi mode, as long as the shell is not inside emacs.
 # this is because having both zsh vi mode and evil is redundant
 if [[ ! -v INSIDE_EMACS ]]; then
-    bindkey -v
+	bindkey -v
 else
-    bindkey -e
+	bindkey -e
 fi
 
 setopt AUTO_CD
@@ -29,6 +29,11 @@ mares_nest () {
 	shuf -n 1 $HOME/.quotes | ponysay
 }
 
+vi () {
+	# emacsclient -t "$@"
+	nvim "$@"
+}
+
 alias ls="/usr/bin/exa --long --grid --time-style=long-iso"
 alias df="btrfs filesystem df /" # df reports free space in btrfs inaccurately
 alias em="/usr/bin/emacsclient -t"
@@ -44,10 +49,10 @@ alias please="/usr/bin/doas !!"
 
 # see setkey -v/e above
 if [[ ! -v INSIDE_EMACS ]]; then
-    source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
-    zvm_after_init_commands+=('source /usr/share/fzf/key-bindings.zsh && source /usr/share/fzf/completion.zsh')
+	source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+	zvm_after_init_commands+=('source /usr/share/fzf/key-bindings.zsh && source /usr/share/fzf/completion.zsh')
 else
-    source /usr/share/fzf/key-bindings.zsh && source /usr/share/fzf/completion.zsh
+	source /usr/share/fzf/key-bindings.zsh && source /usr/share/fzf/completion.zsh
 fi
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

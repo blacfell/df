@@ -12,7 +12,8 @@
   (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
   (define-key evil-normal-state-map "u" 'undo-tree-undo)
   (define-key evil-normal-state-map (kbd "C-r") 'undo-tree-redo)
-  (setq evil-undo-system 'undo-tree))
+  (setq evil-undo-system 'undo-tree
+	evil-shift-width '8))
 
 ;; for repeating
 (use-package goto-chg)
